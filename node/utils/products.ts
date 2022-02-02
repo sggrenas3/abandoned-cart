@@ -7,6 +7,8 @@
 //   }))
 // }
 
+// import axios from "axios";
+
 export const mapProducts = (
   products: SearchProduct[],
   skus: SkuURLItem[]
@@ -19,11 +21,25 @@ export const mapProducts = (
       return sku !== undefined
     })
 
+    const nameWithoutDetails = sku?.nameComplete
+      .replace(sku?.name, '')
+      .replace('-', '')
+
+    const listPrice =
+      sku?.sellers[0].commertialOffer.Price ===
+      sku?.sellers[0].commertialOffer.ListPrice
+        ? undefined
+        : sku?.sellers[0].commertialOffer.ListPrice
+
     return {
       id: s.id,
       productName: sku?.nameComplete,
+      productNameWithoutDetails: nameWithoutDetails,
+      color: sku?.Color,
+      talle: sku?.Talle,
       image: sku?.images[0].imageUrl,
       sellingPrice: sku?.sellers[0].commertialOffer.Price,
+      listPrice,
       quantity: s.qty,
       link: product?.linkText,
       availabilityQuantity: sku?.sellers[0].commertialOffer.AvailableQuantity,

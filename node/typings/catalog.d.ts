@@ -131,6 +131,8 @@ interface SearchItem {
     itemId: string
     amount: number
   }>
+  Color: Array<string>
+  Talle: Array<string>
 }
 
 interface CompleteSpecification {
